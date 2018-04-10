@@ -8,6 +8,10 @@ public class ArrayList<T> implements List<T> {
         this.elements = (T[]) new Object[0]; //"Karsten ist haesslich" - Michel Kapell 2018
     }
 
+    public ArrayList(T array[]) {
+        this.elements = array;
+    }
+
     public int length() {
         return elements.length;
     }
@@ -18,7 +22,7 @@ public class ArrayList<T> implements List<T> {
         }
 
 
-        T[] temp = (T[]) new Object[this.length() + 1];
+        T temp[] = (T[]) new Object[this.length() + 1];
 
         for (int i = 0; i <= temp.length; i++) {
 
@@ -38,12 +42,12 @@ public class ArrayList<T> implements List<T> {
             throw new IllegalArgumentException();
         }
 
-        T[] temp = (T[]) new Object[this.length() - 1];
+        T temp[] = (T[]) new Object[this.length() - 1];
 
         for (int i = 0; i <= temp.length; i++) {
 
             if (i > pos) {
-                temp[i] = elements[i -1];
+                temp[i - 1] = elements[i - 1];
             } else if (i < pos) {
                 temp[i] = elements[i];
             }
@@ -64,11 +68,14 @@ public class ArrayList<T> implements List<T> {
     }
 
     public List<T> concat(List<T> otherList) throws IllegalArgumentException {
+        if (otherList != null) {
+            throw new IllegalArgumentException();
+        }
 
-        T[] temp = (T[]) new Object[this.length() + otherList.length()];
+        T temp[] = (T[]) new Object[this.length() + otherList.length()];
 
-        for (int i = 0; i <= temp.length ; i++) {
-            if (i <= length()){
+        for (int i = 0; i <= temp.length; i++) {
+            if (i <= length()) {
                 temp[i] = elements[i];
             } else {
                 temp[i] = otherList.touch(i);
@@ -80,6 +87,24 @@ public class ArrayList<T> implements List<T> {
     }
 
     public List<T> substitute(int start, int end) throws IllegalArgumentException {
-        return null;
+
+        if (start > length() || end > length()) {
+            throw new IllegalArgumentException();
+        }
+
+        T temp[] = (T[]) new Object[this.length() - (end - start)];
+        T subTemp[] = (T[]) new Object[end - start];
+
+        for (int i = 0; i < temp.length; i++) {
+            if (i < start) {
+                temp[i] = elements[i];
+            } else if (i > end) {
+                temp[i - (end - start)] = elements[i];
+            } else
+                subTemp[i - start] = elements[i];
+        }
+        elements = temp;
+
+        return new ArrayList<T>(temp);
     }
 }

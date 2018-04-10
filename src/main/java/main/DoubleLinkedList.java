@@ -82,26 +82,38 @@ public class DoubleLinkedList<T> implements List<T> {
         if (0 > start || start >= end || end >= length()) {
             throw new IllegalArgumentException();
         }
+        int anzahlElem = end - start;
         List<T> returnValue = new DoubleLinkedList<T>();
         Element temp = getElement(start);
-        Element tempDel = null;
-        returnValue.insert((T)temp.getValue(),0);
+        Element vorStart = temp.getPrev();
+        returnValue.insert((T) temp.getValue(), 0);
 
 
-
-
-        for(int i = start+1;i<=end;i++){
-        //    tempDel = temp.getNext();
-
-        //    returnValue.insert(());
+        for (int i = 1; i <= anzahlElem; i++) {
+            temp = temp.getNext();
+            returnValue.insert((T) temp.getValue(), i);
+            vorStart.setNext(temp);
+            temp.setPrev(vorStart);
         }
 
-        return null;
+        return returnValue;
     }
 
+    // fehler muessen noch abgefangen werden.
 
     public List<T> concat(List otherList) throws IllegalArgumentException {
-        return null;
+        if(otherList==null){
+            throw new IllegalArgumentException();
+        }
+        int lengthOtherList = otherList.length();
+
+
+        for(int i = 0; i<lengthOtherList; i++){
+            insert((T) otherList.touch(i),length());
+        }
+
+
+        return this;
     }
 
 

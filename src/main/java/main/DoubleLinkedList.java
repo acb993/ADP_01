@@ -1,6 +1,5 @@
-package main.java.main;
+package main;
 
-import main.List;
 
 public class DoubleLinkedList<T> implements List<T> {
 
@@ -12,7 +11,7 @@ public class DoubleLinkedList<T> implements List<T> {
         tail = null;
     }
 
-    @Override
+
     public int length() {
         int counter = 0;
         Element next = head;
@@ -27,22 +26,22 @@ public class DoubleLinkedList<T> implements List<T> {
 
     private Element getElement(int pos){
         int length = length();
-        Element returnvalue;
+        Element returnValue;
         if (pos > (length / 2)) {
-            returnvalue = tail;
+            returnValue = tail;
             for (int i = length; i > pos; i--) {
-                returnvalue = returnvalue.getPrev();
+                returnValue = returnValue.getPrev();
             }
         } else {
-            returnvalue = head;
+            returnValue = head;
             for (int i = 0; i < pos; i++) {
-                returnvalue = returnvalue.getNext();
+                returnValue = returnValue.getNext();
             }
         }
-        return  returnvalue;
+        return  returnValue;
     }
 
-    @Override
+
     public void insert(T elem, int pos) throws IllegalArgumentException {
         int length = length();
         Element newElement = new Element<T>(elem);
@@ -59,35 +58,64 @@ public class DoubleLinkedList<T> implements List<T> {
             newElement.setPrev(mem.getPrev());
             mem.setPrev(newElement);
             newElement.getPrev().setNext(newElement);
-
         }
     }
 
-    @Override
+
     public void delete(int pos) throws IllegalArgumentException {
+        if(pos>=length()){
+            throw new IllegalArgumentException();
+        }
 
     }
 
-    @Override
     public T touch(int pos) throws IllegalArgumentException {
+      //  return getElement(pos).getValue();
         return null;
     }
 
-    @Override
     public void clear() {
         head = null;
         tail = null;
     }
 
-    @Override
     public List<T> substitute(int start, int end) throws IllegalArgumentException {
         return null;
     }
 
-    @Override
+
     public List<T> concat(List otherList) throws IllegalArgumentException {
         return null;
     }
 
 
+    private class Element<T> {
+        private Element next;
+        private Element prev;
+        private T value;
+
+        Element(T value){
+            this.value=value;
+        }
+
+        public T getValue() {
+            return value;
+        }
+
+        public Element getPrev() {
+            return prev;
+        }
+
+        public Element getNext() {
+            return next;
+        }
+
+        public void setPrev(Element prev) {
+            this.prev = prev;
+        }
+
+        public void setNext(Element next) {
+            this.next = next;
+        }
+    }
 }

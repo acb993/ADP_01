@@ -24,7 +24,7 @@ public class DoubleLinkedList<T> implements List<T> {
         return counter;
     }
 
-    private Element getElement(int pos){
+    private Element getElement(int pos) {
         int length = length();
         Element returnValue;
         if (pos > (length / 2)) {
@@ -38,7 +38,7 @@ public class DoubleLinkedList<T> implements List<T> {
                 returnValue = returnValue.getNext();
             }
         }
-        return  returnValue;
+        return returnValue;
     }
 
 
@@ -46,7 +46,7 @@ public class DoubleLinkedList<T> implements List<T> {
         int length = length();
         Element newElement = new Element<T>(elem);
         Element mem;
-        if (pos > length|| (head!=null && head.getValue().getClass()==elem.getClass())) {
+        if (pos > length || (head != null && head.getValue().getClass() != elem.getClass())) {
             throw new IllegalArgumentException();
         }
         if (head == null) {
@@ -63,15 +63,14 @@ public class DoubleLinkedList<T> implements List<T> {
 
 
     public void delete(int pos) throws IllegalArgumentException {
-        if(pos>=length()){
+        if (pos >= length()) {
             throw new IllegalArgumentException();
         }
 
     }
 
     public T touch(int pos) throws IllegalArgumentException {
-      //  return getElement(pos).getValue();
-        return null;
+        return (T) getElement(pos).getValue(); //Karsten ist haesslich
     }
 
     public void clear() {
@@ -80,6 +79,23 @@ public class DoubleLinkedList<T> implements List<T> {
     }
 
     public List<T> substitute(int start, int end) throws IllegalArgumentException {
+        if (0 > start || start >= end || end >= length()) {
+            throw new IllegalArgumentException();
+        }
+        List<T> returnValue = new DoubleLinkedList<T>();
+        Element temp = getElement(start);
+        Element tempDel = null;
+        returnValue.insert((T)temp.getValue(),0);
+
+
+
+
+        for(int i = start+1;i<=end;i++){
+        //    tempDel = temp.getNext();
+
+        //    returnValue.insert(());
+        }
+
         return null;
     }
 
@@ -94,8 +110,8 @@ public class DoubleLinkedList<T> implements List<T> {
         private Element prev;
         private T value;
 
-        Element(T value){
-            this.value=value;
+        Element(T value) {
+            this.value = value;
         }
 
         public T getValue() {

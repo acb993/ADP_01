@@ -54,8 +54,7 @@ public interface List<T> {
     * clear: LIST -> BOOLEAN; L.clear()
     * pre: keine
     * post: Sei L = (a 0,...,a n) eine Liste
-    *       Dann bewirkt L.clear() = () und
-    *       gibt einen Boolean zurück
+    *       Dann bewirkt L.clear() = ()
     * */
     void clear();
 

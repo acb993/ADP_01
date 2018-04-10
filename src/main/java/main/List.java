@@ -57,7 +57,7 @@ public interface List<T> {
     *       Dann bewirkt L.clear() = () und
     *       gibt einen Boolean zurück
     * */
-    boolean clear();
+    void clear();
 
     /***
     * Zusammenfügen von zwei Listen

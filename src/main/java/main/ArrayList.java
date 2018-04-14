@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Arrays;
+
 public class ArrayList<T> implements List<T> {
 
     private T elements[];
@@ -47,12 +49,15 @@ public class ArrayList<T> implements List<T> {
         for (int i = 0; i <= temp.length; i++) {
 
             if (i > pos) {
-                temp[i - 1] = elements[i - 1];
+                temp[i - 1] = elements[i];
             } else if (i < pos) {
                 temp[i] = elements[i];
             }
         }
+
+
         elements = temp;
+        System.out.println(this.toString());
     }
 
     public T touch(int pos) throws IllegalArgumentException {
@@ -68,7 +73,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     public List<T> concat(List<T> otherList) throws IllegalArgumentException {
-        if (otherList != null) {
+        if (otherList == null) {
             throw new IllegalArgumentException();
         }
 
@@ -108,12 +113,23 @@ public class ArrayList<T> implements List<T> {
     }
 
     @Override
-    public int hashCode() {
-        return super.hashCode();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArrayList<?> arrayList = (ArrayList<?>) o;
+
+        return this.hashCode() == o.hashCode();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public int hashCode() {
+        return Arrays.deepHashCode(elements);
+    }
+
+    @Override
+    public String toString() {
+        return "ArrayList{" +
+                "elements=" + Arrays.toString(elements) +
+                '}';
     }
 }

@@ -1,4 +1,4 @@
-package main;
+package core;
 
 
 public class DoubleLinkedList<T> implements List<T> {

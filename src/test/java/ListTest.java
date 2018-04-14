@@ -1,4 +1,4 @@
-import main.ArrayList;
+import core.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 

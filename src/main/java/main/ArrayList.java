@@ -5,8 +5,8 @@ public class ArrayList<T> implements List<T> {
     private T elements[];
 
     public ArrayList() {
-        this.elements = (T[]) new Object[0]; //"Karsten ist haesslich" - Michel Kapell 2018
-    }
+        this.elements = (T[]) new Object[0]; }//"Karsten ist haesslich" - Michel Kapell 2018
+
 
     public ArrayList(T array[]) {
         this.elements = array;
@@ -87,7 +87,6 @@ public class ArrayList<T> implements List<T> {
     }
 
     public List<T> substitute(int start, int end) throws IllegalArgumentException {
-
         if (start > length() || end > length()) {
             throw new IllegalArgumentException();
         }
@@ -106,5 +105,15 @@ public class ArrayList<T> implements List<T> {
         elements = temp;
 
         return new ArrayList<T>(temp);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

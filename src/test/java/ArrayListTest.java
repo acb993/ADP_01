@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-public class ListTest {
+public class ArrayListTest {
 
     private ArrayList<Integer> arrayListTestAry;
     private ArrayList<Integer> arrayListEmptyAry;

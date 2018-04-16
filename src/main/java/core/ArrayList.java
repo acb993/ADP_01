@@ -7,7 +7,8 @@ public class ArrayList<T> implements List<T> {
     private T elements[];
 
     public ArrayList() {
-        this.elements = (T[]) new Object[0]; }//"Karsten ist haesslich" - Michel Kapell 2018
+        this.elements = (T[]) new Object[0];
+    }//"Karsten ist haesslich" - Michel Kapell 2018
 
 
     public ArrayList(T array[]) {
@@ -19,14 +20,14 @@ public class ArrayList<T> implements List<T> {
     }
 
     public void insert(T elem, int pos) throws IllegalArgumentException {
-        if (elem == null || pos > length()) {
+        if (elem == null || pos > length() || pos < 0) {
             throw new IllegalArgumentException();
         }
 
 
         T temp[] = (T[]) new Object[this.length() + 1];
 
-        for (int i = 0; i <= temp.length; i++) {
+        for (int i = 0; i <= elements.length; i++) {
 
             if (i > pos) {
                 temp[i] = elements[i - 1];

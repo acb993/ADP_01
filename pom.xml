@@ -8,9 +8,10 @@
     <artifactId>ADP_01</artifactId>
     <version>1.0-SNAPSHOT</version>
     <dependencies>
+
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
             <version>RELEASE</version>
         </dependency>
     </dependencies>

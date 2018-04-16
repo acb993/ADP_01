@@ -1,104 +1,160 @@
 import core.ArrayList;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-
-import static org.junit.Assert.*;
 
 public class ListTest {
 
-    private ArrayList<Integer> testIntAry;
-    private ArrayList<Integer> afterInsertAry;
-    private ArrayList<Integer> afterDeleteAry;
-    private ArrayList<Integer> afterConcatAry;
+    private ArrayList<Integer> arrayListTestAry;
+    private ArrayList<Integer> arrayListEmptyAry;
+    private ArrayList<Object> arrayListNullAry;
 
+    @BeforeEach
+    public void setUp() throws Exception {
+        //Initialisierung für die ArrayList Implementation
+        Integer arrayListTest[] = new Integer[4];
+        arrayListTest[0] = 0;
+        arrayListTest[1] = 1;
+        arrayListTest[2] = 2;
+        arrayListTest[3] = 3;
+        arrayListTestAry = new ArrayList<Integer>(arrayListTest);
 
+        Object arrayListNull[] = new Object[4];
+        arrayListNull[0] = null;
+        arrayListNull[1] = null;
+        arrayListNull[2] = null;
+        arrayListNull[3] = null;
+        arrayListNullAry = new ArrayList<Object>(arrayListNull);
 
-    @Before
-    public void setUp() {
-        Integer temp[] = new Integer[4];
-        temp[0] = 0;
-        temp[1] = 1;
-        temp[2] = 2;
-        temp[3] = 3;
-
-        Integer tempInsert[] = new Integer[5];
-        tempInsert[0] = 0;
-        tempInsert[1] = 1;
-        tempInsert[2] = 2;
-        tempInsert[3] = 8;
-        tempInsert[4] = 3;
-
-        Integer tempDelete[] = new Integer[3];
-        tempDelete[0] = 0;
-        tempDelete[1] = 1;
-        tempDelete[2] = 3;
-
-        Integer tempConcat[] = new Integer[7];
-        tempConcat[0] = 0;
-        tempConcat[1] = 1;
-        tempConcat[2] = 2;
-        tempConcat[3] = 3;
-        tempConcat[4] = 4;
-        tempConcat[5] = 5;
-        tempConcat[6] = 6;
-
-
-        afterConcatAry = new ArrayList<Integer>(tempConcat);
-        afterDeleteAry = new ArrayList<Integer>(tempDelete);
-        afterInsertAry = new ArrayList<Integer>(tempInsert);
-        testIntAry = new ArrayList<Integer>(temp);
+        arrayListEmptyAry = new ArrayList<Integer>();
     }
 
     @Test
-    public void testLength() {
+    public void testLength() throws Exception {
         //Positiver Fall
-        assertEquals(4, testIntAry.length());
+        Assertions.assertEquals(4, arrayListTestAry.length());
+
+        //Grenzfälle (Leeres Ary & Ary mit null als Inhalt)
+        Assertions.assertEquals(0, arrayListEmptyAry.length());
+        Assertions.assertEquals(4, arrayListNullAry.length());
     }
 
     @Test
-    public void testInsert() {
+    public void testInsert() throws Exception {
         //Positiver Fall
-        testIntAry.insert(8,3);
-        assertTrue(afterInsertAry.equals(testIntAry));
+        Integer expectedResult[] = new Integer[5];
+        expectedResult[0] = 0;
+        expectedResult[1] = 1;
+        expectedResult[2] = 2;
+        expectedResult[3] = 8;
+        expectedResult[4] = 3;
+        ArrayList<Integer> expectedResultAry = new ArrayList<Integer>(expectedResult);
+
+        arrayListTestAry.insert(8, 3);
+        Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
+
+
+        //Negativer Fall (null,unter den Index und darüber)
+        try {
+            arrayListTestAry.insert(null, 2);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+        try {
+            arrayListTestAry.insert(7, -1);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+        try {
+            arrayListTestAry.insert(7, 6);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+
+        //Grenzfall (geringster und höchster Index)
+        expectedResult = new Integer[6];
+        expectedResult[0] = 9;
+        expectedResult[1] = 0;
+        expectedResult[2] = 1;
+        expectedResult[3] = 2;
+        expectedResult[4] = 8;
+        expectedResult[5] = 3;
+        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        arrayListTestAry.insert(9, 0);
+        Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
+
+        expectedResult = new Integer[7];
+        expectedResult[0] = 9;
+        expectedResult[1] = 0;
+        expectedResult[2] = 1;
+        expectedResult[3] = 2;
+        expectedResult[4] = 8;
+        expectedResult[5] = 3;
+        expectedResult[6] = 12;
+        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        arrayListTestAry.insert(12, 6);
+        Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
     }
 
     @Test
-    public void testDelete() {
+    public void testDelete() throws Exception {
+        Integer expectedResult[] = new Integer[3];
+        expectedResult[0] = 0;
+        expectedResult[1] = 1;
+        expectedResult[2] = 3;
+        ArrayList<Integer> expectedResultAry = new ArrayList<Integer>(expectedResult);
+
         //Positiver Fall
-        testIntAry.delete(2);
-        assertTrue(afterDeleteAry.equals(testIntAry));
+        arrayListTestAry.delete(2);
+        Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
     }
 
     @Test
-    public void testTouch() {
+    public void testTouch() throws Exception {
         //Positiver Fall
         Integer temp = 0;
-        assertEquals(temp, testIntAry.touch(0));
+        Assertions.assertEquals(temp, arrayListTestAry.touch(0));
     }
 
     @Test
-    public void testClear() {
+    public void testClear() throws Exception {
         //Positiver Fall
-        testIntAry.clear();
-        assertTrue(new ArrayList<Integer>().equals(testIntAry));
+        arrayListTestAry.clear();
+        Assertions.assertTrue(new ArrayList<Integer>().equals(arrayListTestAry));
     }
 
     @Test
-    public void testConcat() {
+    public void testConcat() throws Exception {
+        Integer expectedResult[] = new Integer[7];
+        expectedResult[0] = 0;
+        expectedResult[1] = 1;
+        expectedResult[2] = 2;
+        expectedResult[3] = 3;
+        expectedResult[4] = 4;
+        expectedResult[5] = 5;
+        expectedResult[6] = 6;
+        ArrayList<Integer> expectedResultAry = new ArrayList<Integer>(expectedResult);
+
         //Positiver Fall
-        Integer tempConcat[] = new Integer[3];
-        tempConcat[0] = 4;
-        tempConcat[1] = 5;
-        tempConcat[2] = 6;
+        Integer temp[] = new Integer[3];
+        temp[0] = 4;
+        temp[1] = 5;
+        temp[2] = 6;
+        ArrayList<Integer> tempAry = new ArrayList<Integer>(temp);
 
-        ArrayList<Integer> tempAry = new ArrayList<Integer>(tempConcat);
-        testIntAry.concat(tempAry);
-        assertTrue(testIntAry.equals(tempAry));
+        arrayListTestAry.concat(tempAry);
+        Assertions.assertTrue(arrayListTestAry.equals(expectedResultAry));
     }
 
     @Test
-    public void testSubstitute() {
+    public void testSubstitute() throws Exception {
         ArrayList<Integer> tempAry;
 
 

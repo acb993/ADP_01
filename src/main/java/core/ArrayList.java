@@ -41,7 +41,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     public void delete(int pos) throws IllegalArgumentException {
-        if (pos > length()) {
+        if (pos >= length() || pos < 0) {
             throw new IllegalArgumentException();
         }
 

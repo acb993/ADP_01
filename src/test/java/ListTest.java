@@ -108,19 +108,71 @@ public class ListTest {
         Integer expectedResult[] = new Integer[3];
         expectedResult[0] = 0;
         expectedResult[1] = 1;
-        expectedResult[2] = 3;
+        expectedResult[2] = 2;
         ArrayList<Integer> expectedResultAry = new ArrayList<Integer>(expectedResult);
 
-        //Positiver Fall
-        arrayListTestAry.delete(2);
+        arrayListTestAry.delete(3);
+        Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
+
+
+        //Negativer Fall (unter den Index und darüber)
+        try {
+            arrayListTestAry.delete(-1);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+        try {
+            arrayListTestAry.delete(3);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+
+        //Grenzfall (geringster und höchster Index)
+        expectedResult = new Integer[2];
+        expectedResult[0] = 1;
+        expectedResult[1] = 2;
+        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        arrayListTestAry.delete(0);
+        Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
+
+        expectedResult = new Integer[1];
+        expectedResult[0] = 1;
+        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        arrayListTestAry.delete(1);
         Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
     }
 
     @Test
     public void testTouch() throws Exception {
         //Positiver Fall
-        Integer temp = 0;
+        Integer temp = 2;
+        Assertions.assertEquals(temp, arrayListTestAry.touch(2));
+
+        //Negativer Fall
+        try {
+            arrayListTestAry.touch(-1);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+        try {
+            arrayListTestAry.touch(4);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+
+        //Grenzfall
+        temp = 0;
         Assertions.assertEquals(temp, arrayListTestAry.touch(0));
+        temp = 3;
+        Assertions.assertEquals(temp, arrayListTestAry.touch(3));
     }
 
     @Test
@@ -128,6 +180,10 @@ public class ListTest {
         //Positiver Fall
         arrayListTestAry.clear();
         Assertions.assertTrue(new ArrayList<Integer>().equals(arrayListTestAry));
+
+        //Grenzfall (leeres Array || Null grfülltes Array)
+        Assertions.assertTrue(new ArrayList<Integer>().equals(arrayListEmptyAry));
+        Assertions.assertTrue(new ArrayList<Integer>().equals(arrayListNullAry));
     }
 
     @Test

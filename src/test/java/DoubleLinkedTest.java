@@ -24,7 +24,7 @@ public class DoubleLinkedTest {
         arrayListNull[1] = null;
         arrayListNull[2] = null;
         arrayListNull[3] = null;
- //       arrayListNullAry = new DoubleLinkedList<Object>(arrayListNull);
+        arrayListNullAry = new DoubleLinkedList<Object>(arrayListNull);
 
         arrayListEmptyAry = new DoubleLinkedList<Integer>();
     }
@@ -48,7 +48,7 @@ public class DoubleLinkedTest {
         expectedResult[2] = 2;
         expectedResult[3] = 8;
         expectedResult[4] = 3;
-        ArrayList<Integer> expectedResultAry = new ArrayList<Integer>(expectedResult);
+        DoubleLinkedList<Integer> expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
 
         arrayListTestAry.insert(8, 3);
         Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
@@ -85,7 +85,7 @@ public class DoubleLinkedTest {
         expectedResult[3] = 2;
         expectedResult[4] = 8;
         expectedResult[5] = 3;
-        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
         arrayListTestAry.insert(9, 0);
         Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
 
@@ -97,7 +97,7 @@ public class DoubleLinkedTest {
         expectedResult[4] = 8;
         expectedResult[5] = 3;
         expectedResult[6] = 12;
-        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
         arrayListTestAry.insert(12, 6);
         Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
     }
@@ -108,7 +108,7 @@ public class DoubleLinkedTest {
         expectedResult[0] = 0;
         expectedResult[1] = 1;
         expectedResult[2] = 2;
-        ArrayList<Integer> expectedResultAry = new ArrayList<Integer>(expectedResult);
+        DoubleLinkedList<Integer> expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
 
         arrayListTestAry.delete(3);
         Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
@@ -134,13 +134,13 @@ public class DoubleLinkedTest {
         expectedResult = new Integer[2];
         expectedResult[0] = 1;
         expectedResult[1] = 2;
-        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
         arrayListTestAry.delete(0);
         Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
 
         expectedResult = new Integer[1];
         expectedResult[0] = 1;
-        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
         arrayListTestAry.delete(1);
         Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
     }
@@ -233,7 +233,7 @@ public class DoubleLinkedTest {
         arrayListTestAry.concat(arrayListEmptyAry);
         Assertions.assertTrue(arrayListTestAry.equals(expectedResultAry));
 
-        expectedResult = new Integer[7];
+        expectedResult = new Integer[11];
         expectedResult[0] = 0;
         expectedResult[1] = 1;
         expectedResult[2] = 2;

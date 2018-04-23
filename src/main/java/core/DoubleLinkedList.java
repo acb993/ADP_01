@@ -32,11 +32,14 @@ public class DoubleLinkedList<T> implements List<T> {
     }
 
     private Element getElement(int pos) {
-        int length = length();
+        if (pos < 0 || pos >= length()) {
+            throw new IllegalArgumentException();
+        }
+        int highestIndex = highestIndex();
         Element returnValue;
-        if (pos > (length / 2)) {
+        if (pos > (highestIndex / 2)) {
             returnValue = tail;
-            for (int i = length; i > pos; i--) {
+            for (int i = highestIndex; i > pos; i--) {
                 returnValue = returnValue.getPrev();
             }
         } else {
@@ -53,9 +56,13 @@ public class DoubleLinkedList<T> implements List<T> {
         int length = length();
         Element newElement = new Element<T>(elem);
         Element mem;
-        if (elem == null || pos > length || pos < 0 || (head != null && head.getValue().getClass() != elem.getClass())) {
+        if (pos > length || pos < 0) {
             throw new IllegalArgumentException();
         }
+        if (elem == null && (this.length() > 0 && head.value != null)) {
+            throw new IllegalArgumentException();
+      }
+
         if (head == null) {
             head = newElement;
             tail = head;
@@ -64,6 +71,11 @@ public class DoubleLinkedList<T> implements List<T> {
             mem.setNext(newElement);
             newElement.setPrev(mem);
             tail = newElement;
+        } else if (pos == 0) {
+            mem = head;
+            newElement.setNext(mem);
+            mem.setPrev(newElement);
+            head = newElement;
         } else {
             mem = getElement(pos);
             newElement.setNext(mem);
@@ -71,12 +83,26 @@ public class DoubleLinkedList<T> implements List<T> {
             mem.setPrev(newElement);
             newElement.getPrev().setNext(newElement);
         }
+
     }
 
 
     public void delete(int pos) throws IllegalArgumentException {
         if (pos >= length()) {
             throw new IllegalArgumentException();
+        }
+        Element deletElem = getElement(pos);
+        Element prevElem = deletElem.getPrev();
+        Element nextElem = deletElem.getNext();
+        if (prevElem != null) {
+            prevElem.setNext(nextElem);
+        } else {
+            head = nextElem;
+        }
+        if (nextElem != null) {
+            nextElem.setPrev(prevElem);
+        } else {
+            tail = prevElem;
         }
 
     }
@@ -115,7 +141,7 @@ public class DoubleLinkedList<T> implements List<T> {
             for (int i = 1; i <= anzahlElem; i++) {
                 temp = temp.getNext();
                 returnValue.insert((T) temp.getValue(), i);
-                vorStart.setNext(temp);
+                vorStart.setNext(temp.getNext());
                 temp.setPrev(vorStart);
             }
         }
@@ -126,11 +152,13 @@ public class DoubleLinkedList<T> implements List<T> {
     // fehler muessen noch abgefangen werden.
 
     public List<T> concat(List otherList) throws IllegalArgumentException {
-        if (otherList == null || otherList.touch(0).getClass() != this.touch(0).getClass()) {
+        if (otherList == null) {
             throw new IllegalArgumentException();
         }
         int lengthOtherList = otherList.length();
-
+        if(lengthOtherList>0&& otherList.touch(0).getClass() != this.touch(0).getClass()){
+            throw new IllegalArgumentException();
+        }
 
         for (int i = 0; i < lengthOtherList; i++) {
             insert((T) otherList.touch(i), length());
@@ -170,7 +198,10 @@ public class DoubleLinkedList<T> implements List<T> {
             this.next = next;
         }
 
-
+        @Override
+        public String toString() {
+            return value.toString();
+        }
     }
 
     @Override
@@ -192,5 +223,9 @@ public class DoubleLinkedList<T> implements List<T> {
         }
 
         return Arrays.deepHashCode(arrayList);
+    }
+
+    public int highestIndex() {
+        return length() - 1;
     }
 }

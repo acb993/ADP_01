@@ -24,7 +24,7 @@ public class DoubleLinkedTest {
         arrayListNull[1] = null;
         arrayListNull[2] = null;
         arrayListNull[3] = null;
-        arrayListNullAry = new DoubleLinkedList<Object>(arrayListNull);
+ //       arrayListNullAry = new DoubleLinkedList<Object>(arrayListNull);
 
         arrayListEmptyAry = new DoubleLinkedList<Integer>();
     }
@@ -107,30 +107,90 @@ public class DoubleLinkedTest {
         Integer expectedResult[] = new Integer[3];
         expectedResult[0] = 0;
         expectedResult[1] = 1;
-        expectedResult[2] = 3;
+        expectedResult[2] = 2;
         ArrayList<Integer> expectedResultAry = new ArrayList<Integer>(expectedResult);
 
-        //Positiver Fall
-        arrayListTestAry.delete(2);
+        arrayListTestAry.delete(3);
+        Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
+
+
+        //Negativer Fall (unter den Index und darüber)
+        try {
+            arrayListTestAry.delete(-1);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+        try {
+            arrayListTestAry.delete(3);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+
+        //Grenzfall (geringster und höchster Index)
+        expectedResult = new Integer[2];
+        expectedResult[0] = 1;
+        expectedResult[1] = 2;
+        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        arrayListTestAry.delete(0);
+        Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
+
+        expectedResult = new Integer[1];
+        expectedResult[0] = 1;
+        expectedResultAry = new ArrayList<Integer>(expectedResult);
+        arrayListTestAry.delete(1);
         Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
     }
 
     @Test
     public void testTouch() throws Exception {
         //Positiver Fall
-        Integer temp = 0;
+        Integer temp = 2;
+        Assertions.assertEquals(temp, arrayListTestAry.touch(2));
+
+        //Negativer Fall
+        try {
+            arrayListTestAry.touch(-1);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+        try {
+            arrayListTestAry.touch(4);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+
+        //Grenzfall
+        temp = 0;
         Assertions.assertEquals(temp, arrayListTestAry.touch(0));
+        temp = 3;
+        Assertions.assertEquals(temp, arrayListTestAry.touch(3));
     }
 
     @Test
     public void testClear() throws Exception {
         //Positiver Fall
         arrayListTestAry.clear();
-        Assertions.assertTrue(new ArrayList<Integer>().equals(arrayListTestAry));
+        Assertions.assertTrue(new DoubleLinkedList<Integer>().equals(arrayListTestAry));
+
+        //Grenzfall (leeres Array || Null gefülltes Array)
+        arrayListEmptyAry.clear();
+        Assertions.assertTrue(new DoubleLinkedList<Integer>().equals(arrayListEmptyAry));
+
+        arrayListNullAry.clear();
+        Assertions.assertTrue(new DoubleLinkedList<Integer>().equals(arrayListNullAry));
     }
 
     @Test
     public void testConcat() throws Exception {
+        //Positiver Fall
         Integer expectedResult[] = new Integer[7];
         expectedResult[0] = 0;
         expectedResult[1] = 1;
@@ -139,23 +199,95 @@ public class DoubleLinkedTest {
         expectedResult[4] = 4;
         expectedResult[5] = 5;
         expectedResult[6] = 6;
-        ArrayList<Integer> expectedResultAry = new ArrayList<Integer>(expectedResult);
+        DoubleLinkedList<Integer> expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
 
-        //Positiver Fall
         Integer temp[] = new Integer[3];
         temp[0] = 4;
         temp[1] = 5;
         temp[2] = 6;
-        ArrayList<Integer> tempAry = new ArrayList<Integer>(temp);
+        DoubleLinkedList<Integer> tempAry = new DoubleLinkedList<Integer>(temp);
 
         arrayListTestAry.concat(tempAry);
+        Assertions.assertTrue(arrayListTestAry.equals(expectedResultAry));
+
+
+        //Negativer Fall
+        try {
+            arrayListTestAry.concat(null);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+        //Grenzfall
+
+        expectedResult = new Integer[7];
+        expectedResult[0] = 0;
+        expectedResult[1] = 1;
+        expectedResult[2] = 2;
+        expectedResult[3] = 3;
+        expectedResult[4] = 4;
+        expectedResult[5] = 5;
+        expectedResult[6] = 6;
+        expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
+        arrayListTestAry.concat(arrayListEmptyAry);
+        Assertions.assertTrue(arrayListTestAry.equals(expectedResultAry));
+
+        expectedResult = new Integer[7];
+        expectedResult[0] = 0;
+        expectedResult[1] = 1;
+        expectedResult[2] = 2;
+        expectedResult[3] = 3;
+        expectedResult[4] = 4;
+        expectedResult[5] = 5;
+        expectedResult[6] = 6;
+        expectedResult[7] = null;
+        expectedResult[8] = null;
+        expectedResult[9] = null;
+        expectedResult[10] = null;
+        expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
+        arrayListTestAry.concat(arrayListNullAry);
         Assertions.assertTrue(arrayListTestAry.equals(expectedResultAry));
     }
 
     @Test
     public void testSubstitute() throws Exception {
-        ArrayList<Integer> tempAry;
+        //Positiver Fall
+        Integer expectedResult[] = new Integer[2];
+        expectedResult[0] = 0;
+        expectedResult[1] = 3;
+        DoubleLinkedList<Integer> expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
+
+        arrayListTestAry.substitute(1, 2);
+        Assertions.assertTrue(expectedResultAry.equals(arrayListTestAry));
 
 
+        //Negativer Fall (unter den Index und darüber)
+        try {
+            arrayListTestAry.substitute(-1, 1);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+        try {
+            arrayListTestAry.substitute(-1, 2);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+        try {
+            arrayListTestAry.substitute(0, 2);
+            assert false;
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+
+        //Grenzfall (geringster und höchster Index)
+        expectedResultAry = new DoubleLinkedList<Integer>(expectedResult);
+        arrayListTestAry.substitute(0, 1);
+        Assertions.assertTrue(new DoubleLinkedList<Integer>().equals(arrayListTestAry));
     }
 }

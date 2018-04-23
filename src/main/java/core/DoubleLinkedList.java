@@ -6,11 +6,16 @@ public class DoubleLinkedList<T> implements List<T> {
     private Element head;
     private Element tail;
 
-    DoubleLinkedList() {
+    public DoubleLinkedList() {
         head = null;
         tail = null;
     }
 
+    public DoubleLinkedList(T array[]){
+        for (int i = 0; i< array.length; i++){
+            this.insert(array[i],i);
+        }
+    }
 
     public int length() {
         int counter = 0;
@@ -102,7 +107,7 @@ public class DoubleLinkedList<T> implements List<T> {
     // fehler muessen noch abgefangen werden.
 
     public List<T> concat(List otherList) throws IllegalArgumentException {
-        if(otherList==null){
+        if(otherList==null || otherList.touch(0).getClass()!=this.touch(0).getClass()){
             throw new IllegalArgumentException();
         }
         int lengthOtherList = otherList.length();

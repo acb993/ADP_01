@@ -8,7 +8,6 @@ public class ArrayListTest {
 
     private ArrayList<Integer> arrayListTestAry;
     private ArrayList<Integer> arrayListEmptyAry;
-    private ArrayList<Integer> arrayListNullAry;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -20,13 +19,6 @@ public class ArrayListTest {
         arrayListTest[3] = 3;
         arrayListTestAry = new ArrayList<Integer>(arrayListTest);
 
-        Integer arrayListNull[] = new Integer[4];
-        arrayListNull[0] = null;
-        arrayListNull[1] = null;
-        arrayListNull[2] = null;
-        arrayListNull[3] = null;
-        arrayListNullAry = new ArrayList<Integer>(arrayListNull);
-
         arrayListEmptyAry = new ArrayList<Integer>();
     }
 
@@ -37,7 +29,6 @@ public class ArrayListTest {
 
         //Grenzfälle (Leeres Ary & Ary mit null als Inhalt)
         Assertions.assertEquals(0, arrayListEmptyAry.length());
-        Assertions.assertEquals(4, arrayListNullAry.length());
     }
 
     @Test
@@ -184,9 +175,6 @@ public class ArrayListTest {
         //Grenzfall (leeres Array || Null gefülltes Array)
         arrayListEmptyAry.clear();
         Assertions.assertTrue(new ArrayList<Integer>().equals(arrayListEmptyAry));
-
-        arrayListNullAry.clear();
-        Assertions.assertTrue(new ArrayList<Integer>().equals(arrayListNullAry));
     }
 
     @Test
@@ -233,22 +221,6 @@ public class ArrayListTest {
         expectedResultAry = new ArrayList<Integer>(expectedResult);
         arrayListTestAry.concat(arrayListEmptyAry);
         Assertions.assertTrue(arrayListTestAry.equals(expectedResultAry));
-
-        expectedResult = new Integer[7];
-        expectedResult[0] = 0;
-        expectedResult[1] = 1;
-        expectedResult[2] = 2;
-        expectedResult[3] = 3;
-        expectedResult[4] = 4;
-        expectedResult[5] = 5;
-        expectedResult[6] = 6;
-        expectedResult[7] = null;
-        expectedResult[8] = null;
-        expectedResult[9] = null;
-        expectedResult[10] = null;
-        expectedResultAry = new ArrayList<Integer>(expectedResult);
-        arrayListTestAry.concat(arrayListNullAry);
-        Assertions.assertTrue(arrayListTestAry.equals(expectedResultAry));
     }
 
     @Test
@@ -256,7 +228,7 @@ public class ArrayListTest {
         //Positiver Fall
         Integer expectedResult[] = new Integer[2];
         expectedResult[0] = 0;
-        expectedResult[3] = 3;
+        expectedResult[1] = 3;
         ArrayList<Integer> expectedResultAry = new ArrayList<Integer>(expectedResult);
 
         arrayListTestAry.substitute(1, 2);

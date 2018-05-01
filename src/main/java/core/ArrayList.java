@@ -61,7 +61,7 @@ public class ArrayList<T> implements List<T> {
 
 
         elements = temp;
-        System.out.println(this.toString());
+   //     System.out.println(this.toString());
     }
 
     public T touch(int pos) throws IllegalArgumentException {

@@ -31,8 +31,8 @@ public class DoubleLinkedList<T> implements List<T> {
         return counter;
     }
 
-    private Element getElement(int pos) {
-        if (pos < 0 || pos >= length()) {
+    private Element getElement(int pos,int length) {
+        if (pos < 0 || pos >= length) {
             throw new IllegalArgumentException();
         }
         int highestIndex = highestIndex();
@@ -67,7 +67,7 @@ public class DoubleLinkedList<T> implements List<T> {
             head = newElement;
             tail = head;
         } else if (pos == length) {
-            mem = getElement(pos - 1);
+            mem = getElement(pos - 1,length);
             mem.setNext(newElement);
             newElement.setPrev(mem);
             tail = newElement;
@@ -77,7 +77,7 @@ public class DoubleLinkedList<T> implements List<T> {
             mem.setPrev(newElement);
             head = newElement;
         } else {
-            mem = getElement(pos);
+            mem = getElement(pos,length);
             newElement.setNext(mem);
             newElement.setPrev(mem.getPrev());
             mem.setPrev(newElement);
@@ -88,10 +88,11 @@ public class DoubleLinkedList<T> implements List<T> {
 
 
     public void delete(int pos) throws IllegalArgumentException {
-        if (pos >= length()) {
+        int length = length();
+        if (pos >= length) {
             throw new IllegalArgumentException();
         }
-        Element deletElem = getElement(pos);
+        Element deletElem = getElement(pos,length);
         Element prevElem = deletElem.getPrev();
         Element nextElem = deletElem.getNext();
         if (prevElem != null) {
@@ -108,7 +109,7 @@ public class DoubleLinkedList<T> implements List<T> {
     }
 
     public T touch(int pos) throws IllegalArgumentException {
-        return (T) getElement(pos).getValue(); //Karsten ist haesslich
+        return (T) getElement(pos,length()).getValue(); //Karsten ist haesslich
     }
 
     public void clear() {
@@ -117,12 +118,13 @@ public class DoubleLinkedList<T> implements List<T> {
     }
 
     public List<T> substitute(int start, int end) throws IllegalArgumentException {
-        if (0 > start || start > end || end >= length()) {
+        int length = length();
+        if (0 > start || start > end || end >= length) {
             throw new IllegalArgumentException();
         }
         int anzahlElem = end - start;
         List<T> returnValue = new DoubleLinkedList<T>();
-        Element temp = getElement(start);
+        Element temp = getElement(start,length);
         Element vorStart = temp.getPrev();
         returnValue.insert((T) temp.getValue(), 0);
 
@@ -219,7 +221,7 @@ public class DoubleLinkedList<T> implements List<T> {
         int length = this.length();
         T[] arrayList = (T[]) new Object[length];
         for (int i = 0; i < length; i++) {
-            arrayList[i] = (T) this.getElement(i).getValue();
+            arrayList[i] = (T) this.getElement(i,length).getValue();
         }
 
         return Arrays.deepHashCode(arrayList);

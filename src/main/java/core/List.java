@@ -1,5 +1,13 @@
 package core;
 
+/***
+ * Das Interface List<T> wird verwendet um einen ADT in der gestallt einer Liste zu konstruieren.
+ *
+ *
+ *
+ * @param <T>
+ ***/
+
 public interface List<T> {
 
     /***

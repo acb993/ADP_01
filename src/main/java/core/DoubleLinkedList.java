@@ -56,13 +56,13 @@ public class DoubleLinkedList<T> implements List<T> {
         int length = length();
         Element newElement = new Element<T>(elem);
         Element mem;
-        if (pos > length || pos < 0) {
+        if (pos > length || pos < 0 || elem==null) {
             throw new IllegalArgumentException();
         }
-        if (elem == null && (this.length() > 0 && head.value != null)) {
+/*        if (elem == null && (this.length() > 0 && head.value != null)) {
             throw new IllegalArgumentException();
       }
-
+*/
         if (head == null) {
             head = newElement;
             tail = head;
@@ -117,7 +117,7 @@ public class DoubleLinkedList<T> implements List<T> {
     }
 
     public List<T> substitute(int start, int end) throws IllegalArgumentException {
-        if (0 > start || start >= end || end >= length()) {
+        if (0 > start || start > end || end >= length()) {
             throw new IllegalArgumentException();
         }
         int anzahlElem = end - start;

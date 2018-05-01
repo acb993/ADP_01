@@ -12,7 +12,10 @@ public class ArrayList<T> implements List<T> {
 
 
     public ArrayList(T array[]) {
-        this.elements = array;
+        this.elements = (T[]) new Object[0];
+        for (int i = 0; i < array.length ; i++) {
+            this.insert(array[i],i);
+        }
     }
 
     public int length() {
@@ -25,7 +28,7 @@ public class ArrayList<T> implements List<T> {
         }
 
 
-        T temp[] = (T[]) new Object[this.length() + 1];
+        T temp[] = (T[]) new Object[length() + 1];
 
         for (int i = 0; i <= elements.length; i++) {
 
@@ -62,7 +65,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     public T touch(int pos) throws IllegalArgumentException {
-        if (pos > length()) {
+        if (pos >= length() || pos < 0) {
             throw new IllegalArgumentException();
         }
 
@@ -80,11 +83,11 @@ public class ArrayList<T> implements List<T> {
 
         T temp[] = (T[]) new Object[this.length() + otherList.length()];
 
-        for (int i = 0; i <= temp.length; i++) {
-            if (i <= length()) {
+        for (int i = 0; i < temp.length; i++) {
+            if (i < length()) {
                 temp[i] = elements[i];
             } else {
-                temp[i] = otherList.touch(i);
+                temp[i] = otherList.touch(i-length());
             }
         }
 
@@ -93,24 +96,26 @@ public class ArrayList<T> implements List<T> {
     }
 
     public List<T> substitute(int start, int end) throws IllegalArgumentException {
-        if (start > length() || end > length()) {
+        if (start >= length() || start < 0 || end >= length()) {
             throw new IllegalArgumentException();
         }
 
-        T temp[] = (T[]) new Object[this.length() - (end - start)];
-        T subTemp[] = (T[]) new Object[end - start];
+        int anzahlEntfernteElems = end-start+1;
 
-        for (int i = 0; i < temp.length; i++) {
+        T temp[] = (T[]) new Object[this.length() - anzahlEntfernteElems];
+        T subTemp[] = (T[]) new Object[anzahlEntfernteElems];
+
+        for (int i = 0; i < this.length(); i++) {
             if (i < start) {
                 temp[i] = elements[i];
             } else if (i > end) {
-                temp[i - (end - start)] = elements[i];
+                temp[i - (end)] = elements[i];
             } else
                 subTemp[i - start] = elements[i];
         }
         elements = temp;
 
-        return new ArrayList<T>(temp);
+        return new ArrayList<T>(subTemp);
     }
 
     @Override

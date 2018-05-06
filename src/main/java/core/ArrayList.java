@@ -1,7 +1,13 @@
 package core;
 
 import java.util.Arrays;
-
+/***
+ * Die Klasse ArrayList verwendet das Interface List<T> um einen ADT in der gestallt einer Liste zu konstruieren.
+ *
+ *
+ *
+ * @param <T>
+ ***/
 public class ArrayList<T> implements List<T> {
 
     private T elements[];

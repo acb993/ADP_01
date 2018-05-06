@@ -9,12 +9,12 @@ public class Main {
 
         System.out.println("ARRAY LIST TEST");
         listInsertTest(new ArrayList<Integer>());
-        System.out.println("/n/n/nDoubleLinkedListTest");
+        System.out.println("\n\n\nDoubleLinkedListTest");
         listInsertTest(new DoubleLinkedList<Integer>());
 
         System.out.println("ARRAY LIST TEST");
         deleteTest(new ArrayList<Integer>());
-        System.out.println("/n/n/nDoubleLinkedListTest");
+        System.out.println("\n\n\nDoubleLinkedListTest");
         deleteTest(new DoubleLinkedList<Integer>());
     }
 

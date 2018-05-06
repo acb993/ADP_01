@@ -2,7 +2,7 @@ package alg;
 
 import core.Stack;
 
-public class VollständigGeklammerterAlgebraischerAusdrücke {
+public class VollstaendigGeklammerterAlgebraischerAusdruecke {
 
     private static final String CLOSING_BRACKET = ")";
     private static final String ADDITION_OPERATOR = "+";
@@ -12,6 +12,8 @@ public class VollständigGeklammerterAlgebraischerAusdrücke {
 
     public static void main(String[] args) {
         String temp = "((6 * (4+2))+(5-1))";
+        System.out.println(doSomeMath(temp));
+        temp = "((5 * (3+3))+(6-2))";
         System.out.println(doSomeMath(temp));
     }
 

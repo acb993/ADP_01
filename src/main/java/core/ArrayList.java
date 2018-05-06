@@ -14,7 +14,7 @@ public class ArrayList<T> implements List<T> {
 
     public ArrayList() {
         this.elements = (T[]) new Object[0];
-    }//"Karsten ist haesslich" - Michel Kapell 2018
+    }
 
 
     public ArrayList(T array[]) {

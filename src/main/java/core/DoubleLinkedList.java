@@ -1,4 +1,5 @@
 package core;
+import java.util.Arrays;
 
 /***
  * Die Klasse DoubleLinkedList verwendet das Interface List<T> um einen ADT in der gestallt einer Liste zu konstruieren.
@@ -7,7 +8,6 @@ package core;
  *
  * @param <T>
  ***/
-import java.util.Arrays;
 
 public class DoubleLinkedList<T> implements List<T> {
 

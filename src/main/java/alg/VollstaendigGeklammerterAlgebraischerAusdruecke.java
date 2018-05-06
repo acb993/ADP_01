@@ -1,6 +1,16 @@
 package alg;
 
 import core.Stack;
+/***
+ * Auswertung von Klammerausdrücken via Stack
+ *
+ * doSomeMath Rechnet eine geklammerte Mathe-Aufgabe aus.
+ * In den Klammern muessen immer 2 Operanden und ein Operator stehen.
+ *
+ *
+ * TODO: REGEX zur Kontrolle einer angemessenen Eingabe-Syntax + Exception
+ *
+ * */
 
 public class VollstaendigGeklammerterAlgebraischerAusdruecke {
 
@@ -9,14 +19,6 @@ public class VollstaendigGeklammerterAlgebraischerAusdruecke {
     private static final String SUBSTRACTION_OPERATOR = "-";
     private static final String MULTIPLICATION_OPERATOR = "*";
     private static final String DIVISION_OPERATOR = "/";
-
-    public static void main(String[] args) {
-        String temp = "((6 * (4+2))+(5-1))";
-        System.out.println(doSomeMath(temp));
-        temp = "((5 * (3+3))+(6-2))";
-        System.out.println(doSomeMath(temp));
-    }
-
     /***
      * Auswertung von Klammerausdrücken via Stack
      *
@@ -27,6 +29,14 @@ public class VollstaendigGeklammerterAlgebraischerAusdruecke {
      * TODO: REGEX zur Kontrolle einer angemessenen Eingabe-Syntax + Exception
      *
      * */
+    public static void main(String[] args) {
+        String temp = "((6 * (4+2))+(5-1))";
+        System.out.println(doSomeMath(temp));
+        temp = "((5 * (3+3))+(6-2))";
+        System.out.println(doSomeMath(temp));
+    }
+
+
     private static String doSomeMath(String bracketedExpression) {
         Integer operand2;
         String operator;

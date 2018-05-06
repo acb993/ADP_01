@@ -20,7 +20,8 @@ public class VollstaendigGeklammerterAlgebraischerAusdruecke {
     /***
      * Auswertung von Klammerausdrücken via Stack
      *
-     * Ich bin gerade zu faul einen Text zu schreiben..
+     * doSomeMath Rechnet eine geklammerte Mathe-Aufgabe aus
+     *
      * TODO: Beschreibung fürs JavaDoc
      * TODO: REGEX zur Kontrolle einer angemessenen Eingabe-Syntax + Exception
      * TODO: Testen :)

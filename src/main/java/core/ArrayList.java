@@ -27,7 +27,16 @@ public class ArrayList<T> implements List<T> {
     public int length() {
         return elements.length;
     }
-
+    /***
+     * Einfügen an beliebiger (gültiger) Position
+     *
+     * insert: LIST x ELEM, POS -> LIST ∪ { error }; L.insert(x, p)
+     * pre: p ∈ {p 0,...,p n}; x != null
+     * post: Sei L = (a 0,...,a n) eine Liste
+     *       Sei a i das Element an Position p i
+     *       Dann bewirkt L.insert(x, p i) = (a 0,...,a i-1,x, a i, a i+1,...a n)
+     *      0 <= pos <= length()
+     * */
     public void insert(T elem, int pos) throws IllegalArgumentException {
         if (elem == null || pos > length() || pos < 0) {
             throw new IllegalArgumentException();
@@ -48,7 +57,16 @@ public class ArrayList<T> implements List<T> {
         }
         elements = temp;
     }
-
+    /***
+     * Löschen von beliebiger (gültiger) Position
+     *
+     * delete: LIST x POS -> LIST ∪ { error }; L.delete(p)
+     * pre: p ∈ {p 0,...,p n}
+     * post: Sei L = (a 0,...,a n) eine Liste
+     *       Sei a i das Element an Position p i
+     *       Dann bewirkt L.delete(p i) = (a 0,...,a i-1,a i+1,...,a n)
+     *       0 <= pos < length()
+     * */
     public void delete(int pos) throws IllegalArgumentException {
         if (pos >= length() || pos < 0) {
             throw new IllegalArgumentException();
@@ -69,7 +87,16 @@ public class ArrayList<T> implements List<T> {
         elements = temp;
    //     System.out.println(this.toString());
     }
-
+    /***
+     * Elementzugriff an beliebiger (gültiger) Position
+     *
+     * touch: LIST x POS -> ELEM ∪ { error }; L.touch(p)
+     * pre: p ∈ {p 0,...,p n}
+     * post: Sei L = (a 0,...,a n) eine Liste
+     *       Sei a i das Element an Position p i
+     *       Dann gibt L.touch(p i) das Element a i zurück
+     *       0 <= pos < length()
+     * */
     public T touch(int pos) throws IllegalArgumentException {
         if (pos >= length() || pos < 0) {
             throw new IllegalArgumentException();
@@ -78,6 +105,15 @@ public class ArrayList<T> implements List<T> {
         return elements[pos];
     }
 
+    /***
+     * Zusammenfügen von zwei Listen
+     *
+     * concat: LIST x LIST -> LIST ∪ { error }; L1.concat(L2)
+     * pre: L1 && L2 sind nicht null und müssen vom selben Typ sein
+     * post: L1L2 ist eine neue Liste, in welcher die ersten Zeichen von
+     *       L1 sind, gefolgt von denen von L2 (L1 wird geändert und L2
+     *       L2 bleibt gleich)
+     * */
     public void clear() {
         elements = (T[]) new Object[0];
     }
@@ -100,7 +136,18 @@ public class ArrayList<T> implements List<T> {
         elements = temp;
         return this;
     }
-
+    /***
+     * Subliste extrahieren
+     *
+     * Operation: LIST x POS x POS -> LIST ∪ { error }; L.substitute(p 1,p 2)
+     * pre: p 1 && p 2 ∈ {p 0,...,p n}
+     * post: Sei L = (a 0,...,a n) eine Liste
+     *       Dann gibt L.substitute(p n, p m) eine Liste zurück,
+     *       welche alle Elemete zwischen den ursprünglichen Positionen
+     *       (inklusive) p start und p end enthält. L wird um diese Elemente
+     *       reduziert.
+     *       0 <= start < end < length()
+     * */
     public List<T> substitute(int start, int end) throws IllegalArgumentException {
         if (start >= length() || start < 0 || end >= length()) {
             throw new IllegalArgumentException();

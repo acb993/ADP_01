@@ -24,7 +24,14 @@ public class DoubleLinkedList<T> implements List<T> {
             this.insert(array[i], i);
         }
     }
-
+    /***
+     * Abfrage der Anzahl der Elemente
+     *
+     * length: LIST -> INT; L.length()
+     * pre: keine
+     * post: Sei L = (a 0,...,a n) eine Liste,
+     *       dann gibt L.length() n + 1 als Integer zurück.
+     * */
     public int length() {
         int counter = 0;
         Element next = head;
@@ -36,7 +43,15 @@ public class DoubleLinkedList<T> implements List<T> {
 
         return counter;
     }
-
+    /***
+     * (Privat)
+     * Das holen eines Elementes aus der Liste von der Position pos. Es muss die Laenge der Liste mitgegeben werden.
+     *
+     * Zurueck kommt das Element.
+     *
+     * Die Position des Elementes muss sich in der Liste befinden.
+     *
+     * */
     private Element getElement(int pos,int length) {
         if (pos < 0 || pos >= length) {
             throw new IllegalArgumentException();
@@ -56,7 +71,16 @@ public class DoubleLinkedList<T> implements List<T> {
         }
         return returnValue;
     }
-
+    /***
+     * Einfügen an beliebiger (gültiger) Position
+     *
+     * insert: LIST x ELEM, POS -> LIST ∪ { error }; L.insert(x, p)
+     * pre: p ∈ {p 0,...,p n}; x != null
+     * post: Sei L = (a 0,...,a n) eine Liste
+     *       Sei a i das Element an Position p i
+     *       Dann bewirkt L.insert(x, p i) = (a 0,...,a i-1,x, a i, a i+1,...a n)
+     *      0 <= pos <= length()
+     * */
 
     public void insert(T elem, int pos) throws IllegalArgumentException {
         int length = length();
@@ -91,7 +115,16 @@ public class DoubleLinkedList<T> implements List<T> {
         }
 
     }
-
+    /***
+     * Löschen von beliebiger (gültiger) Position
+     *
+     * delete: LIST x POS -> LIST ∪ { error }; L.delete(p)
+     * pre: p ∈ {p 0,...,p n}
+     * post: Sei L = (a 0,...,a n) eine Liste
+     *       Sei a i das Element an Position p i
+     *       Dann bewirkt L.delete(p i) = (a 0,...,a i-1,a i+1,...,a n)
+     *       0 <= pos < length()
+     * */
 
     public void delete(int pos) throws IllegalArgumentException {
         int length = length();
@@ -113,15 +146,43 @@ public class DoubleLinkedList<T> implements List<T> {
         }
 
     }
-
+    /***
+     * Elementzugriff an beliebiger (gültiger) Position
+     *
+     * touch: LIST x POS -> ELEM ∪ { error }; L.touch(p)
+     * pre: p ∈ {p 0,...,p n}
+     * post: Sei L = (a 0,...,a n) eine Liste
+     *       Sei a i das Element an Position p i
+     *       Dann gibt L.touch(p i) das Element a i zurück
+     *       0 <= pos < length()
+     * */
     public T touch(int pos) throws IllegalArgumentException {
         return (T) getElement(pos,length()).getValue(); //Karsten ist haesslich
     }
-
+    /***
+     * Leeren der Liste
+     *
+     * clear: LIST -> BOOLEAN; L.clear()
+     * pre: keine
+     * post: Sei L = (a 0,...,a n) eine Liste
+     *       Dann bewirkt L.clear() = ()
+     * */
     public void clear() {
         head = null;
         tail = null;
     }
+    /***
+     * Subliste extrahieren
+     *
+     * Operation: LIST x POS x POS -> LIST ∪ { error }; L.substitute(p 1,p 2)
+     * pre: p 1 && p 2 ∈ {p 0,...,p n}
+     * post: Sei L = (a 0,...,a n) eine Liste
+     *       Dann gibt L.substitute(p n, p m) eine Liste zurück,
+     *       welche alle Elemete zwischen den ursprünglichen Positionen
+     *       (inklusive) p start und p end enthält. L wird um diese Elemente
+     *       reduziert.
+     *       0 <= start < end < length()
+     * */
 
     public List<T> substitute(int start, int end) throws IllegalArgumentException {
         int length = length();
@@ -157,7 +218,16 @@ public class DoubleLinkedList<T> implements List<T> {
         return returnValue;
     }
 
-    // fehler muessen noch abgefangen werden.
+
+    /***
+     * Zusammenfügen von zwei Listen
+     *
+     * concat: LIST x LIST -> LIST ∪ { error }; L1.concat(L2)
+     * pre: L1 && L2 sind nicht null und müssen vom selben Typ sein
+     * post: L1L2 ist eine neue Liste, in welcher die ersten Zeichen von
+     *       L1 sind, gefolgt von denen von L2 (L1 wird geändert und L2
+     *       L2 bleibt gleich)
+     * */
 
     public List<T> concat(List otherList) throws IllegalArgumentException {
         if (otherList == null) {

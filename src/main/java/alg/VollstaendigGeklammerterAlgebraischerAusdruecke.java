@@ -20,11 +20,12 @@ public class VollstaendigGeklammerterAlgebraischerAusdruecke {
     /***
      * Auswertung von Klammerausdrücken via Stack
      *
-     * doSomeMath Rechnet eine geklammerte Mathe-Aufgabe aus
+     * doSomeMath Rechnet eine geklammerte Mathe-Aufgabe aus.
+     * In den Klammern muessen immer 2 Operanden und ein Operator stehen.
      *
-     * TODO: Beschreibung fürs JavaDoc
+     *
      * TODO: REGEX zur Kontrolle einer angemessenen Eingabe-Syntax + Exception
-     * TODO: Testen :)
+     *
      * */
     private static String doSomeMath(String bracketedExpression) {
         Integer operand2;
